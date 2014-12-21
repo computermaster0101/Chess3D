@@ -8,10 +8,13 @@ package chess3d;
 
 import javafx.application.Application;
 import static javafx.application.Application.launch;
+import static javafx.scene.transform.Rotate.Z_AXIS;
+
 import javafx.event.EventHandler;
 import javafx.geometry.Point3D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.effect.Light;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.transform.Rotate;
@@ -34,28 +37,30 @@ public class Chess3D extends Application{
     public void start(Stage primaryStage){
         Group root = new Group();
         Scene scene = new Scene(root, 700, 700, Color.GHOSTWHITE);
-        final Point3D gameAreaAnchor;
-        gameAreaAnchor = new Point3D(0,0,0);
-        
-        final Group gameArea = new Group();
-        
-        gameArea.setOnMouseDragged(new EventHandler<MouseEvent>() {
 
+        final Group gameArea = new Group();
+
+        gameArea.setOnMouseDragged(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                double dragX = event.getSceneX() - gameAreaAnchor.getX();
-                double newPositionX = gameArea.getTranslateX();
-                gameArea.setTranslateX(newPositionX);
+                if (event.isPrimaryButtonDown()){
+
+                }
             }
-            
         });
-        
+
         root.getChildren().add(gameArea);
         
         for(int board = 0;board < 5;board++){
             ChessBoard chessBoard = new ChessBoard();
-            chessBoard.getTransforms().add(new Rotate(45,250,250));
+            //chessBoard.getTransforms().add(new Rotate(45,250,250));
+
+            //chessBoard.getTransforms().add(new Rotate(0, Rotate.Z_AXIS));
+            //chessBoard.getTransforms().add(new Rotate(0, Rotate.Y_AXIS));
+            //chessBoard.getTransforms().add(new Rotate(0, Rotate.X_AXIS));
+
+            chessBoard.getTransforms().add(new Rotate(45, new Point3D(1,1,1)));
+
             gameArea.getChildren().add(chessBoard);
         }   
         
